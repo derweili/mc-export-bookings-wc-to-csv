@@ -55,7 +55,7 @@ if ( !class_exists( 'MC_Export_Bookings' ) ) {
 	            'edit.php?post_type=wc_booking', 
 	            __( 'Export bookings', 'export-bookings-to-csv' ),
 	            __( 'Export bookings', 'export-bookings-to-csv' ),
-	            'manage_options', 
+	            'manage_woocommerce', 
 	            'export-bookings-to-csv', 
 	            array( $this,'mc_wcb_main_screen') 
 	        );
@@ -186,6 +186,7 @@ if ( !class_exists( 'MC_Export_Bookings' ) ) {
 					'order_by' => 'start_date',
 					'status'      => array( 'confirmed', 'paid', 'complete' ),
 					'limit'        => -1,
+					'order' =>	"ASC"
 				);
 
 				if ( isset( $data_search['date_start'] ) && !empty( $data_search['date_start'] ) ) {
@@ -417,7 +418,7 @@ if ( !class_exists( 'MC_Export_Bookings' ) ) {
 	            __( 'Paid price', 'export-bookings-to-csv' ),
 	            __( 'Persons', 'export-bookings-to-csv' )
 	        );
-			fputcsv($f, $header, $delimiter);
+			fputcsv($f, $header, $delimiter, '"');
 			// loop over the input array
 			foreach ($data as $line) { 
 				// generate csv lines from the inner arrays
